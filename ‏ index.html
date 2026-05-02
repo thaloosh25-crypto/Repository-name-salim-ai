@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Salim AI — سليم الصحي</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Cairo',sans-serif;background:#f0f4ff;color:#1e293b;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+header{background:linear-gradient(135deg,#6366f1,#0ea5e9);padding:0 16px;height:58px;display:flex;align-items:center;gap:10px;flex-shrink:0;box-shadow:0 2px 12px rgba(99,102,241,.3)}
+.logo{width:38px;height:38px;background:rgba(255,255,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.header-text h1{color:#fff;font-size:16px;font-weight:900}
+.header-text p{color:rgba(255,255,255,.8);font-size:10px}
+.status{margin-right:auto;background:rgba(16,185,129,.2);border:1px solid rgba(16,185,129,.4);color:#6ee7b7;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:5px}
+.dot{width:6px;height:6px;background:#34d399;border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.chat{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px}
+.chat::-webkit-scrollbar{width:3px}
+.chat::-webkit-scrollbar-thumb{background:#c7d2fe;border-radius:2px}
+.welcome{background:#fff;border:1px solid #e0e7ff;border-radius:16px;padding:20px;text-align:center;box-shadow:0 4px 16px rgba(99,102,241,.08)}
+.welcome-avatar{width:64px;height:64px;background:linear-gradient(135deg,#6366f1,#0ea5e9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px;box-shadow:0 4px 20px rgba(99,102,241,.3)}
+.welcome h2{font-size:20px;font-weight:900;background:linear-gradient(135deg,#6366f1,#0ea5e9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.welcome .sub{font-size:12px;color:#64748b;margin-bottom:14px}
+.welcome-msg{background:linear-gradient(135deg,#eef2ff,#e0f2fe);border:1px solid #c7d2fe;border-radius:12px;padding:12px 14px;font-size:13.5px;line-height:1.9;text-align:right;margin-bottom:14px;color:#334155}
+.chips{display:flex;flex-wrap:wrap;gap:7px;justify-content:center;margin-bottom:14px}
+.chip{background:#eef2ff;border:1px solid #c7d2fe;border-radius:20px;padding:6px 12px;font-size:12px;color:#6366f1;cursor:pointer;font-family:'Cairo',sans-serif;font-weight:600;transition:all .15s}
+.chip:hover{background:#6366f1;color:#fff}
+.disclaimer{background:#fef9c3;border:1px solid #fde68a;border-radius:10px;padding:8px 12px;font-size:12px;color:#92400e}
+.prepared{margin-top:8px;font-size:11px;color:#94a3b8;font-style:italic}
+.msg-row{display:flex;gap:8px;align-items:flex-end}
+.msg-row.user{flex-direction:row-reverse}
+.avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.avatar.ai{background:linear-gradient(135deg,#6366f1,#0ea5e9)}
+.avatar.user{background:linear-gradient(135deg,#475569,#64748b);color:#fff;font-size:13px;font-weight:700}
+.bubble{max-width:82%;border-radius:16px;padding:11px 14px;font-size:14px;line-height:1.85}
+.bubble.ai{background:#fff;border:1px solid #e0e7ff;border-bottom-left-radius:4px;box-shadow:0 2px 8px rgba(99,102,241,.08);color:#1e293b}
+.bubble.user{background:linear-gradient(135deg,#6366f1,#0ea5e9);color:#fff;border-bottom-right-radius:4px}
+.section-title{background:#eef2ff;border-right:3px solid #6366f1;border-radius:6px;padding:6px 12px;margin:8px 0 4px;font-weight:700;font-size:13.5px;color:#4338ca}
+.warn-box{background:#fff7ed;border-right:3px solid #f59e0b;border-radius:6px;padding:7px 10px;margin:6px 0;color:#92400e;font-size:13.5px;font-weight:600}
+.good{color:#10b981;font-weight:600;margin:3px 0;font-size:14px}
+.bad{color:#ef4444;margin:3px 0;font-size:14px}
+.green{color:#16a34a;font-weight:700;margin:3px 0}
+.yellow{color:#d97706;font-weight:700;margin:3px 0}
+.red-level{color:#dc2626;font-weight:700;margin:3px 0}
+.typing{display:flex;gap:8px;align-items:flex-end}
+.typing-dots{background:#fff;border:1px solid #e0e7ff;border-radius:16px;border-bottom-left-radius:4px;padding:13px 16px;display:flex;gap:5px;box-shadow:0 2px 8px rgba(99,102,241,.08)}
+.typing-dots span{width:8px;height:8px;border-radius:50%;background:#6366f1;animation:bounce 1.2s infinite}
+.typing-dots span:nth-child(2){animation-delay:.2s}
+.typing-dots span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,60%,100%{transform:translateY(0);opacity:.3}30%{transform:translateY(-7px);opacity:1}}
+.input-area{background:#fff;border-top:1px solid #e0e7ff;padding:10px 14px;flex-shrink:0;box-shadow:0 -2px 12px rgba(99,102,241,.06)}
+.input-wrap{display:flex;gap:8px;align-items:flex-end;background:#f8faff;border:1.5px solid #e0e7ff;border-radius:13px;padding:7px 10px;transition:border-color .2s}
+.input-wrap:focus-within{border-color:#6366f1}
+textarea{flex:1;background:none;border:none;outline:none;font-family:'Cairo',sans-serif;font-size:14px;color:#1e293b;resize:none;max-height:90px;line-height:1.7;padding:2px 0}
+textarea::placeholder{color:#94a3b8}
+.send-btn{width:40px;height:40px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#0ea5e9);border:none;color:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:opacity .2s}
+.send-btn:disabled{opacity:.4;cursor:not-allowed}
+.hint{font-size:10px;color:#94a3b8;text-align:center;margin-top:4px}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">⚕️</div>
+  <div class="header-text">
+    <h1>Salim AI — سليم الصحي</h1>
+    <p>المساعد الصحي الذكي | Intelligent Health Assistant</p>
+  </div>
+  <div class="status"><div class="dot"></div>متاح الآن</div>
+</header>
+
+<div class="chat" id="chat">
+  <div class="welcome" id="welcome">
+    <div class="welcome-avatar">⚕️</div>
+    <h2>Salim AI</h2>
+    <div class="sub">سليم الصحي — المساعد الذكي للتمريض والرعاية الصحية</div>
+    <div class="welcome-msg">
+      <strong style="color:#6366f1;display:block;margin-bottom:4px">👋 أهلاً وسهلاً!</strong>
+      أنا <strong>سليم</strong>، مساعدك الذكي في مجال التمريض والرعاية الصحية.<br/>
+      اسألني أي سؤال — أدوية، أمراض، رعاية مرضى، بروتوكولات، أو أي موضوع صحي 💙
+    </div>
+    <div class="chips">
+      <span class="chip" onclick="ask('ما آثار الهالوبيريدول الجانبية؟')">💊 الهالوبيريدول</span>
+      <span class="chip" onclick="ask('كيف أقيّم خطر الانتحار؟')">🔴 خطر الانتحار</span>
+      <span class="chip" onclick="ask('ما أعراض الفصام ورعاية المريض؟')">🧠 الفصام</span>
+      <span class="chip" onclick="ask('كيف أرعى مريض الاكتئاب؟')">💙 الاكتئاب</span>
+      <span class="chip" onclick="ask('ما بروتوكول العزل والتقييد؟')">🛡️ العزل</span>
+      <span class="chip" onclick="ask('كيف أقيس ضغط الدم بشكل صحيح؟')">💉 ضغط الدم</span>
+    </div>
+    <div class="disclaimer">⚠️ سليم للأغراض التعليمية فقط. القرارات الإكلينيكية تستوجب إشراف طبي.</div>
+    <div class="prepared">Prepared by Abu Shadi</div>
+  </div>
+</div>
+
+<div class="input-area">
+  <div class="input-wrap">
+    <textarea id="inp" rows="1" placeholder="اسألني أي سؤال في التمريض أو الرعاية الصحية..." onkeydown="onKey(event)" oninput="resize(this)"></textarea>
+    <button class="send-btn" id="btn" onclick="send()">➤</button>
+  </div>
+  <div class="hint">Enter للإرسال • Shift+Enter لسطر جديد</div>
+</div>
+
+<script>
+const GEMINI_KEY = "YOUR_GEMINI_API_KEY";
+const SYSTEM = `أنت سليم، مساعد ذكاء اصطناعي متخصص في التمريض والرعاية الصحية.
+تجيب على أسئلة الممرضين والمهنيين الصحيين والمرضى بشكل علمي ودقيق وودّي.
+تغطي جميع تخصصات التمريض: النفسي، الباطني، الجراحي، الأطفال، الطوارئ، التوليد، العناية المركزة، وغيرها.
+تجيب بالعربية إذا كان السؤال بالعربية، وبالإنجليزية إذا كان السؤال بالإنجليزية.
+ابدأ ردودك مباشرة بدون مقدمات. رتّب الإجابة بعناوين وقوائم عند الحاجة.
+نبّه دائماً للحالات التي تستوجب استشارة الطبيب فوراً.
+في النهاية دائماً: هذه معلومات تعليمية — القرارات الإكلينيكية تستوجب إشراف طبي.`;
+
+let history = [];
+let busy = false;
+
+function resize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,90)+'px'}
+
+function onKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();send()}}
+
+function ask(q){document.getElementById('inp').value=q;send()}
+
+function addMsg(role,text){
+  const chat=document.getElementById('chat');
+  const welcome=document.getElementById('welcome');
+  if(welcome)welcome.remove();
+
+  const row=document.createElement('div');
+  row.className='msg-row '+(role==='user'?'user':'ai');
+
+  const av=document.createElement('div');
+  av.className='avatar '+(role==='user'?'user':'ai');
+  av.textContent=role==='user'?'👤':'⚕️';
+
+  const bub=document.createElement('div');
+  bub.className='bubble '+(role==='user'?'user':'ai');
+
+  if(role==='user'){
+    bub.textContent=text;
+  } else {
+    bub.innerHTML=formatText(text);
+  }
+
+  row.appendChild(av);
+  row.appendChild(bub);
+  chat.appendChild(row);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function formatText(text){
+  const lines=text.split('\n');
+  return lines.map(line=>{
+    const t=line.trim();
+    if(!t) return '<div style="height:5px"></div>';
+    if(t.startsWith('⚠️')||t.startsWith('🔴'))
+      return `<div class="warn-box">${t}</div>`;
+    if(t.match(/^#{1,3}\s/) || (t.endsWith(':')&&t.length<60&&!t.startsWith('•')&&!t.startsWith('-')&&!t.startsWith('✓')))
+      return `<div class="section-title">${t.replace(/^#+\s*/,'')}</div>`;
+    if(t.startsWith('✓')||t.startsWith('✅'))
+      return `<div class="good">${t}</div>`;
+    if(t.startsWith('✗')||t.startsWith('❌'))
+      return `<div class="bad">${t}</div>`;
+    if(t.startsWith('🟢')) return `<div class="green">${t}</div>`;
+    if(t.startsWith('🟡')) return `<div class="yellow">${t}</div>`;
+    if(t.startsWith('**')&&t.endsWith('**'))
+      return `<div style="font-weight:700;color:#4338ca;margin:6px 0">${t.slice(2,-2)}</div>`;
+    const bold=t.replace(/\*\*(.*?)\*\*/g,'<strong style="color:#4338ca">$1</strong>');
+    return `<div style="margin:3px 0;line-height:1.8;color:#334155">${bold}</div>`;
+  }).join('');
+}
+
+function showTyping(){
+  const chat=document.getElementById('chat');
+  const div=document.createElement('div');
+  div.className='typing';
+  div.id='typing';
+  div.innerHTML=`<div class="avatar ai">⚕️</div><div class="typing-dots"><span></span><span></span><span></span></div>`;
+  chat.appendChild(div);
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function hideTyping(){
+  const t=document.getElementById('typing');
+  if(t)t.remove();
+}
+
+async function send(){
+  const inp=document.getElementById('inp');
+  const btn=document.getElementById('btn');
+  const q=inp.value.trim();
+  if(!q||busy)return;
+
+  inp.value='';
+  inp.style.height='auto';
+  busy=true;
+  btn.disabled=true;
+
+  addMsg('user',q);
+  showTyping();
+
+  history.push({role:'user',parts:[{text:q}]});
+
+  try{
+    const res=await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`,
+      {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          system_instruction:{parts:[{text:SYSTEM}]},
+          contents:history,
+          generationConfig:{maxOutputTokens:1500,temperature:0.7}
+        })
+      }
+    );
+    const data=await res.json();
+    const reply=data?.candidates?.[0]?.content?.parts?.[0]?.text||'عذراً، لم أتمكن من الإجابة الآن. حاول مرة أخرى.';
+    history.push({role:'model',parts:[{text:reply}]});
+    hideTyping();
+    addMsg('ai',reply);
+  }catch(e){
+    hideTyping();
+    addMsg('ai','⚠️ حدث خطأ في الاتصال. تأكد من صحة API Key وحاول مرة أخرى.');
+    history.pop();
+  }
+
+  busy=false;
+  btn.disabled=false;
+  inp.focus();
+}
+</script>
+
+</body>
+</html>
